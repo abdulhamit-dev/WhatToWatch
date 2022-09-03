@@ -8,10 +8,12 @@ using WhatToWatch.Worker;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddHttpClient();
         services.AddSingleton<IMovieService, MovieManager>();
         services.AddSingleton<IMovieDal, EfMovieDal>();
         services.AddHostedService<Worker>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     })
     .Build();
 

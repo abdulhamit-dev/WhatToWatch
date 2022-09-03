@@ -11,8 +11,8 @@ using WhatToWatch.DataAccess.Concrete.Contexts;
 namespace WhatToWatch.DataAccess.Migrations
 {
     [DbContext(typeof(WhatToWatchContext))]
-    [Migration("20220903104958_movieAdd")]
-    partial class movieAdd
+    [Migration("20220903171615_createdDataBAse")]
+    partial class createdDataBAse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace WhatToWatch.DataAccess.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("WhatToWatch.Entities.Conrete.MovieNoteAndScore", b =>
+            modelBuilder.Entity("WhatToWatch.Entities.Conrete.MovieNoteAndVote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,19 +58,21 @@ namespace WhatToWatch.DataAccess.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Not")
+                    b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Vote")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("MovieNoteAndScores");
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("MovieNoteAndVotes");
                 });
 
             modelBuilder.Entity("WhatToWatch.Entities.Conrete.User", b =>
@@ -108,16 +110,32 @@ namespace WhatToWatch.DataAccess.Migrations
                             Name = "hamit",
                             Password = "123",
                             Surname = "yılmaz",
-                            UserName = "hamit"
+                            UserName = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "ayşe",
-                            Password = "321",
-                            Surname = "öztürk",
-                            UserName = "ayse"
+                            Name = "hamit2",
+                            Password = "123",
+                            Surname = "yilmaz",
+                            UserName = "admin2"
                         });
+                });
+
+            modelBuilder.Entity("WhatToWatch.Entities.Conrete.MovieNoteAndVote", b =>
+                {
+                    b.HasOne("WhatToWatch.Entities.Conrete.Movie", "Movie")
+                        .WithMany("NoteAndVotes")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("WhatToWatch.Entities.Conrete.Movie", b =>
+                {
+                    b.Navigation("NoteAndVotes");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,28 +25,27 @@ namespace WhatToWatch.DataAccess.Concrete.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new )
 
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
                 Name = "hamit",
                 Surname = "yılmaz",
-                UserName = "hamit",
+                UserName = "admin",
                 Password = "123"
             });
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 2,
-                Name = "ayşe",
-                Surname = "öztürk",
-                UserName = "ayse",
-                Password = "321"
+                Name = "hamit2",
+                Surname = "yilmaz",
+                UserName = "admin2",
+                Password = "123"
             });
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<MovieNoteAndScore> MovieNoteAndScores { get; set; }
+        public DbSet<MovieNoteAndVote> MovieNoteAndVotes { get; set; }
     }
 }

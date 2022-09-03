@@ -5,13 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using WhatToWatch.Core.DataAccess.Abstract;
 using WhatToWatch.Entities.Conrete;
-using WhatToWatch.Entities.Dtos.Movie;
-using WhatToWatch.Entities.Dtos.MovieNoteAndVote;
 
 namespace WhatToWatch.DataAccess.Abstract
 {
-    public interface IMovieDal : IEntityRepository<Movie>
+    public interface IMovieNoteAndVoteDal : IEntityRepository<MovieNoteAndVote>
     {
-        List<MovieNoteVoteDto> GetMovies(int id,int userId);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhatToWatch.Core.Utilities.Result;
+using WhatToWatch.Entities.Conrete;
 using WhatToWatch.Entities.Dtos.Movie;
 
 namespace WhatToWatch.Business.Abstract
@@ -12,5 +13,8 @@ namespace WhatToWatch.Business.Abstract
     {
         Task<MovieResultDto> GetMovieData();
         Task<int> SaveData();
+        IDataResult<MovieNoteAndVoteResponseDto> GetById(int id);
+        IDataResult<List<Movie>> GetAll(int page);
+
     }
 }

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using WhatToWatch.Business.Abstract;
 
 namespace WhatToWatch.Worker
@@ -15,16 +16,18 @@ namespace WhatToWatch.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            //quartz.net de kullanýlabilir di fakat tek job olduðu için gerek duymadým.
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
                     var data = await _movieService.SaveData();
-                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                    _logger.LogInformation("Worker SaveData() : {time}", DateTimeOffset.Now);
+                    _logger.LogInformation("Worker Data() : ", JsonConvert.SerializeObject(data));
                 }
                 catch (Exception ex)
                 {
-                    string err = ex.ToString();
+                    _logger.LogInformation("Worker Error", JsonConvert.SerializeObject(ex));
                 }
                 
                 

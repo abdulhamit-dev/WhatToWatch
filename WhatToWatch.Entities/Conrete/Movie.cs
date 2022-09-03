@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,6 @@ namespace WhatToWatch.Entities.Conrete
         public int Page { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }
-
+        public virtual IEnumerable<MovieNoteAndVote> NoteAndVotes { get; set; }
     }
 }
