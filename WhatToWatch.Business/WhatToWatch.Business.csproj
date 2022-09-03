@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatToWatch.Core\WhatToWatch.Core.csproj" />
+    <ProjectReference Include="..\WhatToWatch.DataAccess\WhatToWatch.DataAccess.csproj" />
+    <ProjectReference Include="..\WhatToWatch.Entities\WhatToWatch.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
