@@ -1,14 +1,13 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
-using System;
-using System.IdentityModel.Tokens.Jwt;
 using WhatToWatch.Business.Abstract;
 using WhatToWatch.Business.Concrete;
 using WhatToWatch.Business.ValidationRules;
+using WhatToWatch.Core.Caching;
+using WhatToWatch.Core.Caching.Redis;
 using WhatToWatch.Core.Extensions;
 using WhatToWatch.Core.Utilities.Security.Encryption;
 using WhatToWatch.Core.Utilities.Security.JWT;
@@ -25,7 +24,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get< TokenOptions>();
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -43,25 +42,27 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
     });
 
-builder.Services.AddSingleton(sp => new ConnectionFactory() 
+builder.Services.AddSingleton(sp => new ConnectionFactory()
 { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
 
 builder.Services.AddSingleton<IUserService, UserManager>();
 builder.Services.AddSingleton<IAuthService, AuthManager>();
 builder.Services.AddSingleton<IMovieNoteAndVoteService, MovieNoteAndVoteManager>();
 builder.Services.AddSingleton<IMovieService, MovieManager>();
-builder.Services.AddSingleton<IRabbitMqService, RabbitMqManager>();
 
 builder.Services.AddSingleton<IUserDal, EfUserDal>();
 builder.Services.AddSingleton<IMovieNoteAndVoteDal, EfMovieNoteAndVoteDal>();
 builder.Services.AddSingleton<IMovieDal, EfMovieDal>();
 
 builder.Services.AddSingleton<ITokenHelper, JwtTokenHelper>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+builder.Services.AddSingleton<IRabbitMqService, RabbitMqManager>();
+builder.Services.AddSingleton<RedisServer>();
+builder.Services.AddSingleton<ICacheService, RedisCacheService>();
 builder.Services.AddScoped<IValidator<MovieNoteAndVoteAddDto>, MovieNoteAndVoteValidator>();
 
 builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -10,7 +10,7 @@ using WhatToWatch.Entities.Dtos.MovieNoteAndVote;
 
 namespace WhatToWatch.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -19,16 +19,16 @@ namespace WhatToWatch.API.Controllers
         private readonly IMovieService  _movieService;
         private readonly IRabbitMqService _rabbitMqService;
         private readonly IMovieNoteAndVoteService _movieNoteAndVoteService;
-        private HttpContextAccessor _httpContextAccessor;
+        //private HttpContextAccessor _httpContextAccessor;
         private IValidator<MovieNoteAndVoteAddDto> _validator;
 
-        public MovieController(IMovieService movieService, IRabbitMqService rabbitMqService, IMovieNoteAndVoteService movieNoteAndVoteService, IValidator<MovieNoteAndVoteAddDto> validator, HttpContextAccessor httpContextAccessor)
+        public MovieController(IMovieService movieService, IRabbitMqService rabbitMqService, IMovieNoteAndVoteService movieNoteAndVoteService, IValidator<MovieNoteAndVoteAddDto> validator)
         {
             _movieService = movieService;
             _rabbitMqService = rabbitMqService;
             _movieNoteAndVoteService = movieNoteAndVoteService;
             _validator = validator;
-            _httpContextAccessor = httpContextAccessor;
+            //_httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("GetAll")]
@@ -68,8 +68,8 @@ namespace WhatToWatch.API.Controllers
         [HttpPost("RecommendedMovieSendMail")]
         public IActionResult RecommendedMovieSendMail(int MovieId, string mail)
         {
-            var name = _httpContextAccessor?.HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
-            _rabbitMqService.Publish(new MovieMailCreatedEvent() { Mail = mail, MovieId = MovieId,UserName=name! });
+            var name = User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+            _rabbitMqService.Publish(new MovieMailCreatedEvent() { Mail = mail, MovieId = MovieId,UserName=name });
             return Ok("");
         }
     }

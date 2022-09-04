@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WhatToWatch.Business.Abstract;
 using WhatToWatch.Business.Constant;
+using WhatToWatch.Core.Caching;
 using WhatToWatch.Core.Utilities.Result;
 using WhatToWatch.DataAccess.Abstract;
 using WhatToWatch.Entities.Conrete;
@@ -26,7 +27,8 @@ namespace WhatToWatch.Business.Concrete
         private readonly string _apiKey;
         private readonly string _apiUrl;
         private IHttpContextAccessor _httpContextAccessor;
-        public MovieManager(HttpClient httpClient, IMovieDal movieDal, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        private ICacheService _cacheService;
+        public MovieManager(HttpClient httpClient, IMovieDal movieDal, IMapper mapper, IHttpContextAccessor httpContextAccessor, ICacheService cacheService)
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false);
@@ -39,9 +41,23 @@ namespace WhatToWatch.Business.Concrete
             _movieDal = movieDal;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _cacheService = cacheService;
         }
+
+        //eğer daha önce aynı sayfa cache de ise cache den getiriyorum
+        //burada cache nin süresi veya ne kadar tutulacağı senaryoya göre değişeceği için şimdilik bu şekilde bıraktım.
         public IDataResult<List<Movie>> GetAll(int page)
         {
+            if (_cacheService.Any($"MovieGetAll_{page}"))
+            {
+                var moviesdto = _cacheService.Get<List<Movie>>($"MovieGetAll_{page}");
+                return new SuccessDataResult<List<Movie>>(moviesdto, MessagesReturn.GetAll);
+            }
+
+            var movies = _movieDal.GetAll(x => x.Page == page);
+
+            _cacheService.Add("MovieGetAll", movies);
+
             return new SuccessDataResult<List<Movie>>(_movieDal.GetAll(x => x.Page == page), MessagesReturn.GetAll);
         }
         public IDataResult<MovieNoteAndVoteResponseDto> GetByIdDetail(int id)

@@ -18,6 +18,7 @@ namespace WhatToWatch.Business.Concrete
         public static string ExchangeName = "MailExchange";
         public static string RoutingMail = "mail-route-send";
         public static string QueueName = "queue-mail-send";
+
         public RabbitMqManager(ConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;

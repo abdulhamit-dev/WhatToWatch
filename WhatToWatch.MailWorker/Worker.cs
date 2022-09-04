@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Net.Mail;
 using System.Text;
 using WhatToWatch.Business.Abstract;
 using WhatToWatch.Business.Concrete;
@@ -36,8 +35,8 @@ namespace WhatToWatch.MailWorker
         {
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-            var consumer=new AsyncEventingBasicConsumer(_channel);
-            _channel.BasicConsume(RabbitMqManager.QueueName,false,consumer);
+            var consumer = new AsyncEventingBasicConsumer(_channel);
+            _channel.BasicConsume(RabbitMqManager.QueueName, false, consumer);
             consumer.Received += Consumer_Received;
 
             await Task.CompletedTask;
@@ -50,7 +49,7 @@ namespace WhatToWatch.MailWorker
 
             var movieDto = _movieService.GetById(movieMailCreatedEvent.MovieId);
 
-            _mailService.SendMail(movieMailCreatedEvent.Mail,movieMailCreatedEvent.UserName,movieDto.Data);
+            _mailService.SendMail(movieMailCreatedEvent.Mail, movieMailCreatedEvent.UserName, movieDto.Data);
 
             _channel.BasicAck(@event.DeliveryTag, false);
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhatToWatch.DataAccess.Concrete.DataMapping;
 using WhatToWatch.Entities.Conrete;
 
 namespace WhatToWatch.DataAccess.Concrete.Contexts
@@ -25,6 +26,9 @@ namespace WhatToWatch.DataAccess.Concrete.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new MovieMap());
+            modelBuilder.ApplyConfiguration(new MovieNoteAndVoteMap());
 
             modelBuilder.Entity<User>().HasData(new User
             {
@@ -44,6 +48,7 @@ namespace WhatToWatch.DataAccess.Concrete.Contexts
             });
         }
 
+    
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieNoteAndVote> MovieNoteAndVotes { get; set; }
