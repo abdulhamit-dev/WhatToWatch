@@ -44,8 +44,8 @@ namespace WhatToWatch.Business.Concrete
             _cacheService = cacheService;
         }
 
-        //eğer daha önce aynı sayfa cache de ise cache den getiriyorum
-        //burada cache nin süresi veya ne kadar tutulacağı senaryoya göre değişeceği için şimdilik bu şekilde bıraktım.
+        //Daha önce aynı sayfa cache de ise cache den getiriyorum
+        //Burada cache süresi veya ne kadar tutulacağı senaryoya göre değişeceği için şimdilik bu şekilde bıraktım.
         public IDataResult<List<Movie>> GetAll(int page)
         {
             if (_cacheService.Any($"MovieGetAll_{page}"))
@@ -55,8 +55,8 @@ namespace WhatToWatch.Business.Concrete
             }
 
             var movies = _movieDal.GetAll(x => x.Page == page);
-
-            _cacheService.Add($"MovieGetAll_{page}", movies);
+            if (movies.Count > 0)
+                _cacheService.Add($"MovieGetAll_{page}", movies);
 
             return new SuccessDataResult<List<Movie>>(_movieDal.GetAll(x => x.Page == page), MessagesReturn.GetAll);
         }
