@@ -36,7 +36,7 @@ namespace WhatToWatch.Business.Concrete
             }
             catch (Exception ex)
             {
-                //loglama
+                //log
             }
         }
     }

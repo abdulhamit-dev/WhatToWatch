@@ -31,7 +31,7 @@ namespace WhatToWatch.Worker
                 }
                 
                 
-                await Task.Delay(1000*60, stoppingToken);//1000*60*60=1hour 
+                await Task.Delay(1000*60*60, stoppingToken);//1000*60*60=1hour 
             }
         }
     }
