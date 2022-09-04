@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace WhatToWatch.Core.Exceptions
 {
-    public class UnAuthorizeException
+    public class UnAuthorizeException : Exception
     {
+        public UnAuthorizeException()
+        {
+
+        }
+        public UnAuthorizeException(string name) : base(name)
+        {
+
+        }
     }
 }

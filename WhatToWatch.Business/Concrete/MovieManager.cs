@@ -44,7 +44,7 @@ namespace WhatToWatch.Business.Concrete
         {
             return new SuccessDataResult<List<Movie>>(_movieDal.GetAll(x => x.Page == page), MessagesReturn.GetAll);
         }
-        public IDataResult<MovieNoteAndVoteResponseDto> GetById(int id)
+        public IDataResult<MovieNoteAndVoteResponseDto> GetByIdDetail(int id)
         {
             var userId = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var result = _movieDal.GetMovies(id, Convert.ToInt32(userId));
@@ -63,6 +63,7 @@ namespace WhatToWatch.Business.Concrete
             }
             return new SuccessDataResult<MovieNoteAndVoteResponseDto>(movieNoteAndVoteResponseDto, MessagesReturn.GetAll);
         }
+
         public async Task<MovieResultDto> GetMovieData()
         {
             #region !!! Açıklama
@@ -94,6 +95,18 @@ namespace WhatToWatch.Business.Concrete
             _movieDal.AddRange(moList);
 
             return 1;
+        }
+
+        IDataResult<MovieDto> IMovieService.GetById(int id)
+        {
+            var result = _movieDal.Get(x => x.Id == id);
+            
+            if (result is null)
+                return new ErrorDataResult<MovieDto>(null, MessagesReturn.NotFound);
+            
+            MovieDto resultDto = _mapper.Map<MovieDto>(result);
+            
+            return new SuccessDataResult<MovieDto>(resultDto, MessagesReturn.GetById);
         }
     }
 }

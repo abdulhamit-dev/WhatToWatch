@@ -1,6 +1,9 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Connections;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using WhatToWatch.Business.Abstract;
@@ -40,10 +43,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
     });
 
+builder.Services.AddSingleton(sp => new ConnectionFactory() 
+{ Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
+
 builder.Services.AddSingleton<IUserService, UserManager>();
 builder.Services.AddSingleton<IAuthService, AuthManager>();
 builder.Services.AddSingleton<IMovieNoteAndVoteService, MovieNoteAndVoteManager>();
 builder.Services.AddSingleton<IMovieService, MovieManager>();
+builder.Services.AddSingleton<IRabbitMqService, RabbitMqManager>();
 
 builder.Services.AddSingleton<IUserDal, EfUserDal>();
 builder.Services.AddSingleton<IMovieNoteAndVoteDal, EfMovieNoteAndVoteDal>();

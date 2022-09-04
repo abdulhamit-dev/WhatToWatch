@@ -13,7 +13,8 @@ namespace WhatToWatch.Business.Abstract
     {
         Task<MovieResultDto> GetMovieData();
         Task<int> SaveData();
-        IDataResult<MovieNoteAndVoteResponseDto> GetById(int id);
+        IDataResult<MovieNoteAndVoteResponseDto> GetByIdDetail(int id);
+        IDataResult<MovieDto> GetById(int id);
         IDataResult<List<Movie>> GetAll(int page);
 
     }

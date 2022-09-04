@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatToWatch.Core", "WhatToW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToWatch.Worker", "WhatToWatch.Worker\WhatToWatch.Worker.csproj", "{BFCA4484-4287-499D-84B3-83A0ABCCA308}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToWatch.MailWorker", "WhatToWatch.MailWorker\WhatToWatch.MailWorker.csproj", "{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{BFCA4484-4287-499D-84B3-83A0ABCCA308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFCA4484-4287-499D-84B3-83A0ABCCA308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFCA4484-4287-499D-84B3-83A0ABCCA308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,5 +13,6 @@ namespace WhatToWatch.Business.Constant
         public static string Update => "Kayıt update edildi";
         public static string Delete => "Kayıt silindi";
         public static string GetAll => "Kayıtlar listelendi";
+        public static string GetById => "Id'ye göre kayıt getirildi";
     }
 }
