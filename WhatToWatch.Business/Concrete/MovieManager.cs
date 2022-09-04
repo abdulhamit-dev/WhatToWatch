@@ -105,6 +105,7 @@ namespace WhatToWatch.Business.Concrete
             foreach (var movieDto in data.Results)
             {
                 var movie = _mapper.Map<Movie>(movieDto);
+                movie.Id = 0;
                 movie.Page = data.Page;
                 moList.Add(movie);
             }

@@ -21,7 +21,7 @@ namespace WhatToWatch.Business.Concrete
     {
         private readonly IMovieNoteAndVoteDal _movieNoteAndVoteDal;
         private readonly IMapper _mapper;
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public MovieNoteAndVoteManager(IMovieNoteAndVoteDal movieNoteAndVoteDal, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _movieNoteAndVoteDal = movieNoteAndVoteDal;
@@ -40,4 +40,6 @@ namespace WhatToWatch.Business.Concrete
             return new SuccessResult(MessagesReturn.Add);
         }
     }
+
+
 }

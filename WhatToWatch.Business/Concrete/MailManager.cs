@@ -26,7 +26,7 @@ namespace WhatToWatch.Business.Concrete
                 ePosta.From = new MailAddress(_emailConfig.From);
                 ePosta.To.Add(email);
                 ePosta.Subject = "Film Tavsiye";
-                ePosta.Body =@$"Merhaba size {userName} adlı kullanıcıdan, {movieDto.Title} adlı film tavsiye edildi. <br/> Film Hakkında:{movieDto.Overview}";
+                ePosta.Body =@$"Merhaba size {userName} adlı kullanıcıdan, {movieDto.Title} adlı film tavsiye edildi.  Film Hakkında:{movieDto.Overview}";
                 SmtpClient smtp = new SmtpClient();
                 smtp.Credentials = new NetworkCredential(_emailConfig.From, _emailConfig.Password);
                 smtp.Port = _emailConfig.Port;

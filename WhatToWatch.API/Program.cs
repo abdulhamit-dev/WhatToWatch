@@ -1,24 +1,18 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using FluentValidation;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
-using WhatToWatch.Business.Abstract;
-using WhatToWatch.Business.Concrete;
 using WhatToWatch.Business.DependencyResolvers;
-using WhatToWatch.Business.ValidationRules;
-using WhatToWatch.Core.Caching;
-using WhatToWatch.Core.Caching.Redis;
+using WhatToWatch.Business.Mapping.AutoMapping;
 using WhatToWatch.Core.Extensions;
 using WhatToWatch.Core.Utilities.Security.Encryption;
 using WhatToWatch.Core.Utilities.Security.JWT;
-using WhatToWatch.DataAccess.Abstract;
-using WhatToWatch.DataAccess.Concrete.Repositories;
-using WhatToWatch.Entities.Dtos.MovieNoteAndVote;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 #region Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -27,7 +21,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterMod
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region JWT
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();

@@ -11,8 +11,8 @@ using WhatToWatch.DataAccess.Concrete.Contexts;
 namespace WhatToWatch.DataAccess.Migrations
 {
     [DbContext(typeof(WhatToWatchContext))]
-    [Migration("20220903171615_createdDataBAse")]
-    partial class createdDataBAse
+    [Migration("20220904210013_creatdDb")]
+    partial class creatdDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,19 +85,23 @@ namespace WhatToWatch.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

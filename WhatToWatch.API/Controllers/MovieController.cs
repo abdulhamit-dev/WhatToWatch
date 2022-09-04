@@ -46,6 +46,8 @@ namespace WhatToWatch.API.Controllers
         public IActionResult GetById(int id)    
         {
             var result = _movieService.GetByIdDetail(id);
+
+            var resulttest = _movieService.GetById(id);
             if (result.Success)
                 return Ok(result);
             else
@@ -69,8 +71,8 @@ namespace WhatToWatch.API.Controllers
         public IActionResult RecommendedMovieSendMail(int MovieId, string mail)
         {
             var name = User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
-            _rabbitMqService.Publish(new MovieMailCreatedEvent() { Mail = mail, MovieId = MovieId,UserName=name });
-            return Ok("");
+            _rabbitMqService.Publish(new MovieMailCreatedEvent() { Mail = mail, MovieId = MovieId,UserName=name! });
+            return Ok();
         }
     }
 }
