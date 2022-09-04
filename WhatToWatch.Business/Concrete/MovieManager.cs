@@ -56,7 +56,7 @@ namespace WhatToWatch.Business.Concrete
 
             var movies = _movieDal.GetAll(x => x.Page == page);
 
-            _cacheService.Add("MovieGetAll", movies);
+            _cacheService.Add($"MovieGetAll_{page}", movies);
 
             return new SuccessDataResult<List<Movie>>(_movieDal.GetAll(x => x.Page == page), MessagesReturn.GetAll);
         }

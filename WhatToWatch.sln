@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatToWatch.Business", "Wha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatToWatch.Core", "WhatToWatch.Core\WhatToWatch.Core.csproj", "{005B468D-E41D-4860-8AF7-CB079152AB1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToWatch.Worker", "WhatToWatch.Worker\WhatToWatch.Worker.csproj", "{BFCA4484-4287-499D-84B3-83A0ABCCA308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatToWatch.Worker", "WhatToWatch.Worker\WhatToWatch.Worker.csproj", "{BFCA4484-4287-499D-84B3-83A0ABCCA308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToWatch.MailWorker", "WhatToWatch.MailWorker\WhatToWatch.MailWorker.csproj", "{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatToWatch.MailWorker", "WhatToWatch.MailWorker\WhatToWatch.MailWorker.csproj", "{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{19E70E58-DE14-463A-A4FB-2399171F2CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToWatch.API.Test", "Test\WhatToWatch.API.Test\WhatToWatch.API.Test.csproj", "{2554EB98-5CC9-4A68-955A-C1DF3F55364E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +55,16 @@ Global
 		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B0B4C4E-6010-4816-8D4B-CFAE6310639D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2554EB98-5CC9-4A68-955A-C1DF3F55364E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2554EB98-5CC9-4A68-955A-C1DF3F55364E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2554EB98-5CC9-4A68-955A-C1DF3F55364E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2554EB98-5CC9-4A68-955A-C1DF3F55364E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2554EB98-5CC9-4A68-955A-C1DF3F55364E} = {19E70E58-DE14-463A-A4FB-2399171F2CD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D45028D-5301-4720-9F9B-C4228C745088}

@@ -9,6 +9,7 @@ namespace WhatToWatch.Entities.Dtos.Movie
 {
     public class MovieNoteAndVoteResponseDto
     {
+        public int Id { get; set; }
         public int Page { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }

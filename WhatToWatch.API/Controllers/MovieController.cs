@@ -43,7 +43,7 @@ namespace WhatToWatch.API.Controllers
         }
 
         [HttpGet("GetById/{id:int}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int id)    
         {
             var result = _movieService.GetByIdDetail(id);
             if (result.Success)
