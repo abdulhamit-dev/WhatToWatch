@@ -26,6 +26,11 @@ namespace WhatToWatch.MailWorker
         public override Task StartAsync(CancellationToken cancellationToken)
         {
             _channel = _rabbitMqService.Connect();
+
+            //mesajlar kaçar kaçar gelsin
+            //0 : herhangi bir boyutdaki mesaj gelebilir.
+            //1 : 1 'er mesaj gelsin
+            //global: false olursa her kullanýcýya 1 tane gitmesi true olursa  toplamý eþit bir þekilde böleerek daðýtma yapacak
             _channel.BasicQos(0, 1, false);
 
             return base.StartAsync(cancellationToken);
@@ -36,6 +41,7 @@ namespace WhatToWatch.MailWorker
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
             var consumer = new AsyncEventingBasicConsumer(_channel);
+            //autoAck false ise otomatik olarak silmemesi için
             _channel.BasicConsume(RabbitMqManager.QueueName, false, consumer);
             consumer.Received += Consumer_Received;
 

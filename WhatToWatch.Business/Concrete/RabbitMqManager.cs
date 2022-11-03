@@ -31,9 +31,31 @@ namespace WhatToWatch.Business.Concrete
             {
                 return _channel;
             }
+            //kanal oluşturuldu
             _channel = _connection.CreateModel();
+
+            //exchange mesajları ilgili kuyruklara rootlama yapar
+
+            //fanout kendisene bağlı olan tüm kuyruklara mesaj iletir. aynı mesajı hepsine gönderir
+            //hava tahmini örnek verilebilir. Bir tane hava tahmini yapılır saat başı veri gönderilir. İsteyenler queue oluşturarak bu veriyi alabilir.
+
+            //direct root adına göre kuyruğa veri gönderilir
+            //loglama örnek verilebilir. Error ,İnfo,Warning
+
+            //topic exchange detaylı rootlama yapmakiçin
+            //örnek olarak string ifadeler noktalar ile birbirinden ayrılarak daha detaylı varyasyon yapılır.
+
+            //header exhange 
             _channel.ExchangeDeclare(ExchangeName, type: "direct", true, false);
-            _channel.QueueDeclare(QueueName, true, false, false, null);
+
+            //kuyruk oluşturma
+            //QueueName : kuyruk ismi
+            //durable:true olursa kuyruk kaydedilir silinmez
+            //exclusive:false ise farklı kanallar ile bağlanılabilir
+            //autoDelete:false olursa bu durumda son subscriber da düşse bile que silinmez
+            _channel.QueueDeclare(QueueName,durable: true,exclusive: false, false, null);
+
+            //mesajı gönderme
             _channel.QueueBind(exchange: ExchangeName, queue: QueueName, routingKey: RoutingMail);
             return _channel;
         }
@@ -47,6 +69,7 @@ namespace WhatToWatch.Business.Concrete
             var bodyByte = Encoding.UTF8.GetBytes(bodyString);
 
             var properties = channel.CreateBasicProperties();
+
             properties.Persistent = true;
 
             channel.BasicPublish(exchange:ExchangeName, routingKey: RoutingMail, basicProperties: properties, body: bodyByte);

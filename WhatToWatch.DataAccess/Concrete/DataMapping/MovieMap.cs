@@ -17,6 +17,7 @@ namespace WhatToWatch.DataAccess.Concrete.DataMapping
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Page).IsRequired();
             builder.Property(x => x.Title).IsRequired();
+            builder.HasMany(x => x.NoteAndVotes);
         }
     }
 }

@@ -46,6 +46,7 @@ namespace WhatToWatch.Business.Concrete
 
         //Daha önce aynı sayfa cache de ise cache den getiriyorum
         //Burada cache süresi veya ne kadar tutulacağı senaryoya göre değişeceği için şimdilik bu şekilde bıraktım.
+       
         public IDataResult<List<Movie>> GetAll(int page)
         {
             if (_cacheService.Any($"MovieGetAll_{page}"))
